@@ -1,9 +1,12 @@
 import tkinter as tk
+import tkinter.ttk as ttk
 """
 簡単な説明 : 
 GUIを表示するプログラムです. 
-演奏開始と演奏中止のボタンがあり, ボタンを押すことで状態を表す変数modeを切り替えます. 
-想定としては, LeapmotionのプログラムがJSONファイルを出力するとき, modeの値に応じて出力を変えるようにすれば,
+演奏開始と演奏中止のボタンがあり, ボタンを押すことで状態を表す変数modeを切り替える関数が呼ばれます. 
+また, 楽器を選択するためのプルダウンメニューがあり, 選択された時に関数select_instrumentが呼ばれます. 
+選択されている楽器の名前はv.get()で取得できます. 
+想定として, LeapmotionのプログラムがJSONファイルを出力するとき, これらの変数の値に応じて出力を変えるようにすれば,
 GUIからの入力を反映させることができると思います. 
 
 これから考えること:
@@ -16,19 +19,46 @@ GUIからの入力を反映させることができると思います.
 他に必要な機能があれば変数やボタンを追加して機能を拡張することができます. 
 """
 mode = 0#GUIからの入力を表す変数 1なら演奏中, 0なら演奏中でない
+#演奏開始ボタンが呼び出す関数
 def start():
     mode = 1
-    print(mode)
+    print("現在のモードは", mode)
+
+#演奏中止ボタンが呼び出す関数
 def end():
     mode = 0
-    print(mode)
+    print("現在のモードは", mode)
+
+#プルダウンメニューで選択された時に呼ばれる関数
+def select_instrument(e):
+    print("選ばれた楽器は", v.get())
+
 
 root = tk.Tk()
-root.geometry('800x500')
-pixelVirtual = tk.PhotoImage(width = 1, height = 1)#ボタンのサイズをpixel単位で指定するための仮想的な画像
-button = tk.Button(root, text = "演奏開始", image = pixelVirtual, width = 500, height = 100, compound = "c", font = ("Helvetica", 70), command = start)
-button.place(x = 150 , y = 100)
-button = tk.Button(root, text = "演奏中止", image = pixelVirtual, width = 500, height = 100, compound = "c", font = ("Helvetica", 70), command = end)
-button.place(x = 150 , y = 300)
+root.geometry('500x350')
 root.title("GUI")
+
+#ラベルの表示
+label = tk.Label(root, text = "Leapmotionで演奏しよう!", font = ("Helvetica", 30))
+label.place(x = 250 , y = 80, anchor = tk.CENTER)
+
+#ボタンのサイズをpixel単位で指定するための仮想的な画像
+pixelVirtual = tk.PhotoImage(width = 1, height = 1)
+
+#演奏開始ボタン
+button1 = tk.Button(root, text = "演奏開始", image = pixelVirtual, width = 140, height = 40, compound = "c", font = ("Helvetica", 20), command = start)
+button1.place(x = 150 , y = 200, anchor = tk.CENTER)
+
+#演奏中止ボタン
+button2 = tk.Button(root, text = "演奏中止", image = pixelVirtual, width = 140, height = 40, compound = "c", font = ("Helvetica", 20), command = end)
+button2.place(x = 350 , y = 200, anchor = tk.CENTER)
+
+#楽器選択用のプルダウンメニュー
+v = tk.StringVar()
+instruments = ('ギター', 'ドラム')
+select = ttk.Combobox(root, textvariable = v, state="readonly", values = instruments)
+select.set('ギター')
+select.bind('<<ComboboxSelected>>', select_instrument)
+select.place(x = 250 , y = 300, anchor = tk.CENTER)
+
 root.mainloop()
