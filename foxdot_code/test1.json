@@ -1,7 +1,7 @@
 {
     "is_stroke":1,
-    "guitar_code": [11,1,1,1,1,1,1,1], 
-    "stroke_duration": [1,1.5,0.5,1,1,1,1,1], 
+    "guitar_code": [11], 
+    "stroke_duration": [1], 
     "stroke_suspension": [1], 
     "stroke_amplification": [1]
 }
