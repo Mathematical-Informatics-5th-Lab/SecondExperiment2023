@@ -6,7 +6,14 @@ import numpy as np
 import json
 import scipy, numpy
 import matplotlib.pyplot as plt
-
+"""
+説明
+json_to_guitarに, ローパスフィルタ(シグモイド関数で実装)をかける機能と音量調整機能を追加. 
+JSONファイルにlowpass属性とvolume属性を追加. 
+volumeの値が音量に対応し, 
+lowpassの値がフィルタの鋭さに対応. 
+lowpassフィルタのカットオフ周波数は10000Hzで固定した. 
+"""
 #サンプリング周波数44.1kHz
 Fs = 44100
 
