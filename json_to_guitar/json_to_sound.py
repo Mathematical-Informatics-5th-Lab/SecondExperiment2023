@@ -44,25 +44,29 @@ def json_to_sound(json_data):
     return Chord
 
 
-
+stroke_record = 10
 while(1):
     try:#たまにValueErrorを吐くのでtry節で囲む
         json_data = json.load(open('test1.json', 'r'))
+        print("指の本数:"+str(json_data["fingers"])+",ストロークの有無:"+str(json_data["is_stroke"])+",コード:"+str(json_data["guitar_code"]))
 
         #ストロークの有無
         #0:音を鳴らさない
         #1:ストロークが0になるまで音を鳴らす. 0になったら音を止める
         is_stroke = json_data["is_stroke"]
-
-        if is_stroke == 0:
-            time.sleep(0.1)
+        if stroke_record != is_stroke:
+            stroke_record = is_stroke
+            if is_stroke  == 0:
+                time.sleep(0.01)
+            else:
+                #wavファイルの生成
+                wavfile.write("do.wav", Fs, json_to_sound(json_data))
+                # wavファイルをロードして再生
+                mixer.init()  # mixerを初期化
+                mixer.music.load("do.wav")  # wavをロード
+                mixer.music.play(1)
+                time.sleep(0.1)
         else:
-            #wavファイルの生成
-            wavfile.write("do.wav", Fs, json_to_sound(json_data))
-            # wavファイルをロードして再生
-            mixer.init()  # mixerを初期化
-            mixer.music.load("do.wav")  # wavをロード
-            mixer.music.play(1)
-            time.sleep(0.1)
+            time.sleep(0.01)
     except ValueError:
         pass
