@@ -1,11 +1,7 @@
 import guitar_sound as gs
 from scipy.io import wavfile
 from pygame import mixer
-import time
-import numpy as np
-import json
-import scipy, numpy
-import matplotlib.pyplot as plt
+import time, json, numpy
 """
 説明
 json_to_guitarに, ローパスフィルタ(シグモイド関数で実装)をかける機能と音量調整機能を追加. 
@@ -24,7 +20,7 @@ def lowpass(a, cutoff, acute):
     for i in range(len(fa)):
         coeff.append(1 / (1 + numpy.exp(acute * (i - cutoff))))
     fa = numpy.multiply(fa, numpy.array(coeff))
-    return np.fft.irfft(fa, len(a))
+    return numpy.fft.irfft(fa, len(a))
 
 
 def json_to_sound(json_data):
