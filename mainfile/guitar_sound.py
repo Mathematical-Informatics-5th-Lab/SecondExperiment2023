@@ -1,4 +1,4 @@
-import matplotlib.pyplot as plt
+
 import numpy as np
 from scipy import signal as sg
 
@@ -35,8 +35,7 @@ def guitar_sound(fret, offset, Fs):
     P = abs(H)**2
     P = 10*np.log10(P)
 
-    #matplotを使ってフィルタ応答関数のグラフを表示
-    plt.plot(W, P)
+
 
     #ギターの音の元となる6秒間ゼロが並んだベクトルを定義する
     x = [0]*(Fs*6)
