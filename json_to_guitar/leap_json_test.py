@@ -1,3 +1,6 @@
+import sys
+sys.path.append("C:\\users\\meip-users\\.pyenv\\pyenv-win\\versions\\2.7.18\\Lib\\site-packages")
+
 import json
 from leapmotion import Leap
 from time import sleep
@@ -32,7 +35,7 @@ def norm(v):
 def stroke(current_frame, previous):
 	current_hand = current_frame.hands.rightmost
 	current_position = current_hand.palm_position
-	ret = previous["sound_state"]
+	ret = previous["is_stroke"]
 	if norm(current_hand.palm_velocity) >= threshold_velocity:
 		if current_position[0] >= 0:
 			ret = 1
@@ -54,7 +57,7 @@ while True:
         current_frame = controller.frame()
         previous_frame = controller.frame(1)
         current_hand = current_frame.hands.rightmost
-        with open('./test.json') as f:
+        with open('./test1.json') as f:
             previous = json.load(f)
         current = {}
         #####

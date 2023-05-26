@@ -1,3 +1,6 @@
+import sys #pyautoguiの環境変数が設定できていない場合追加する
+sys.path.append("c:\\users\\meip-users\\.pyenv\\pyenv-win\\versions\\3.10.5\\lib\\site-packages") #pyautoguiの環境変数が設定できていない場合追加する
+
 import time
 import numpy as np
 import json
@@ -16,7 +19,7 @@ def json_to_sound(json_data):
     D = "w5yo"
     Em = "etuo"
     F = "qryi"
-    G = "wtyu"
+    G = "wtuo"
 
     Codes = [C, F, G, Am, D, Em]
 
@@ -36,10 +39,6 @@ while(1):
 
         if is_stroke == 0:
             time.sleep(0.1)
-            pyautogui.keyUp(Code[0])
-            pyautogui.keyUp(Code[1])
-            pyautogui.keyUp(Code[2])
-            pyautogui.keyUp(Code[3])
         else:
             Code = json_to_sound(json_data)
 
@@ -49,7 +48,6 @@ while(1):
             pyautogui.keyDown(Code[3])
 
             time.sleep(1)
-
             pyautogui.keyUp(Code[0])
             pyautogui.keyUp(Code[1])
             pyautogui.keyUp(Code[2])
