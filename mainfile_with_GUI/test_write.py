@@ -1,5 +1,12 @@
 import json, time, random
-
+"""
+変更点の説明 : 
+GUI.pyを実行していると, GUIを操作するたびにGUI.jsonの値が更新されます. 
+test_write.pyは, while文のなかでパラメータをGUI.jsonから読み込んで, 
+その値に応じてtest.jsonに書き込む値を決定します. 
+問題点として, GUI.jsonの読み込みに失敗するとGUIからの入力が反映されないという点がありますが,
+動かすことはできると思います. 
+"""
 def get_parameters():
     try:#たまにValueErrorを吐くのでtry節で囲む
         with open('./GUI.json') as f:#jsonファイルを開く
