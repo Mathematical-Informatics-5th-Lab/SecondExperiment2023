@@ -60,11 +60,11 @@ while True:
         #####
         current["fingers"] = code_id(current_frame)
         current["is_stroke"] = stroke(current_frame,previous)
-        # current["palm_distance"] = palm_distance(current_frame)
+        current["palm_distance"] = palm_distance(current_frame)
         # current["tip_distance"] = tip_distance(current_frame)
         #####
         print(current)
         json_file = open('./test.json', mode="w")
         json.dump(current, json_file)
         json_file.close()
-    sleep(.01)
+    sleep(.001)
