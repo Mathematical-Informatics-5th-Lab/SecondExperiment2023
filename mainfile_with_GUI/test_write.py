@@ -1,10 +1,13 @@
 import json, time, random
 """
 変更点の説明 : 
-GUI.pyを実行していると, GUIを操作するたびにGUI.jsonの値が更新されます. 
-test_write.pyは, while文のなかでパラメータをGUI.jsonから読み込んで, 
-その値に応じてtest.jsonに書き込む値を決定します. 
-問題点として, GUI.jsonの読み込みに失敗するとGUIからの入力が反映されないという点がありますが,
+GUIと統合したバージョンを作成した. 
+実行方法として, GUI.pyとjson_to_sound.pyとleap_json.pyの3つのファイルを同時に実行する方式を想定. 
+動作方式は以下の通り. 
+1. GUI.pyはGUI.jsonにパラメータを書き込む. 
+2. test_write.pyは, while文のなかでパラメータをGUI.jsonからパラメータを読み込んで, その値に応じてtest.jsonに書き込む値を決定する. 
+3. json_to_sound.pyがtest.jsonからパラメータを読み込んで音を鳴らす. 
+問題点として, test_write.pyがGUI.jsonの読み込みに失敗するとGUIからの入力が反映されないという点がありますが,
 動かすことはできると思います. 
 """
 def get_parameters():
