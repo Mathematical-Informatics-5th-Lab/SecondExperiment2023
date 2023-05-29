@@ -59,7 +59,7 @@ while True:
         current = {}
         #####
         current["fingers"] = code_id(current_frame)
-        current["is_stroke"] = stroke(current_frame,previous) and GUI.get_mode()
+        current["is_stroke"] = stroke(current_frame,previous)
         # current["palm_distance"] = palm_distance(current_frame)
         # current["tip_distance"] = tip_distance(current_frame)
         #####
