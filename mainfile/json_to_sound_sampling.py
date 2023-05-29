@@ -42,9 +42,17 @@ def json_to_sound(json_data):
         Chord = Chord + balance[i] * sound
     return Chord
 
-
+def get_parameters():
+        try:#たまにValueErrorを吐くのでtry節で囲む
+            with open('./GUI.json') as f:#jsonファイルを開く
+                return json.load(f)#jsonファイルの内容をdict型の変数diに代入
+        except ValueError:
+            pass
 stroke_record = 10
+parameters = {"mode":0}
 while(1):
+    #GUIからの入力を受け取るための辞書
+    parameters = get_parameters()
     try:#たまにValueErrorを吐くのでtry節で囲む
         json_data = json.load(open('test.json', 'r'))
         codes =['C', 'F', 'G', 'Am', 'D', 'Em']
@@ -61,7 +69,7 @@ while(1):
         #ストロークの有無
         #0:音を鳴らさない
         #1:ストロークが0になるまで音を鳴らす. 0になったら音を止める
-        is_stroke = json_data["is_stroke"]
+        is_stroke = json_data["is_stroke"] and parameters["mode"]
         if stroke_record != is_stroke:
             stroke_record = is_stroke
             if is_stroke  == 0:
