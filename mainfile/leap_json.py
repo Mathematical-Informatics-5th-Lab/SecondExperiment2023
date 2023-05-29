@@ -49,6 +49,7 @@ def tip_distance(frame):
     pos_index = frame.fingers[1].tip_position
     return pos_thumb.distance_to(pos_index)
 
+controller.set_policy_flags(Leap.Controller.POLICY_BACKGROUND_FRAMES)
 while True:
     if controller.is_connected:
         current_frame = controller.frame()
