@@ -27,7 +27,7 @@ def json_to_sound(json_data):
     fret_F = [1, 3, 3, 2, 1, 1] #Fコード
     fret_G = [3, 2, 0, 0, 0, 3] #Gコード
     Nocode = [0,0,0,0,0,0]
-    Codes = [fret_C, fret_F, fret_G, fret_Am, fret_D, Nocode]
+    Codes = [fret_C, fret_F, fret_G, fret_Am, fret_D, Em,Nocode]
 
     #★押さえる弦の位置fretとして上のいずれかのコードを選びます★
     fret = Codes[extended]
@@ -43,17 +43,20 @@ def json_to_sound(json_data):
     return Chord
 
 
-t = 0
 stroke_record = 10
 while(1):
     try:#たまにValueErrorを吐くのでtry節で囲む
-        t += 1
         json_data = json.load(open('test.json', 'r'))
         codes =['C', 'F', 'G', 'Am', 'D', 'Em']
         if json_data["fingers"] == -1:
             continue
         guitar_code = codes[json_data["fingers"]]
-        print("指の本数:"+str(json_data["fingers"])+",ストロークの有無:"+str(json_data["is_stroke"])+",コード:"+guitar_code)
+
+        #音量調整
+        #palmdistanceは100から300の値をとる
+        #volumeは0から1にしたい
+        volume = round(json_data["palm_distance"] / 200,1)
+        print("音量"+str(volume)+"指の本数:"+str(json_data["fingers"])+",ストロークの有無:"+str(json_data["is_stroke"])+",コード:"+guitar_code)
 
         #ストロークの有無
         #0:音を鳴らさない
@@ -64,12 +67,11 @@ while(1):
             if is_stroke  == 0:
                 time.sleep(0.001)
             else:
-                os.chdir('wavfiles')
-                #wavファイルの生成
-                wavfile.write(str(t) + ".wav", Fs, json_to_sound(json_data))
+                os.chdir('guitar_sample')
                 # wavファイルをロードして再生
                 mixer.init()  # mixerを初期化
-                mixer.music.load(str(t) + ".wav")  # wavをロード
+                mixer.music.set_volume(volume)
+                mixer.music.load(codes[json_data["fingers"]] + ".wav")  # wavをロード
                 mixer.music.play(1)
                 time.sleep(0.001)
                 os.chdir('../')
