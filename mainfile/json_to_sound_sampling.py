@@ -49,7 +49,7 @@ def get_parameters():
         except ValueError:
             pass
 stroke_record = 10
-parameters = {"mode":0}
+parameters = {"mode":0,"instrument":"ピアノ"}
 while(1):
     #GUIからの入力を受け取るための辞書
     parameters = get_parameters()
@@ -75,7 +75,10 @@ while(1):
             if is_stroke  == 0:
                 time.sleep(0.001)
             else:
-                os.chdir('guitar_sample')
+                if parameters["instrument"] == "guitar":
+                    os.chdir('guitar_sample')
+                else:
+                    os.chdir("piano_sample")
                 # wavファイルをロードして再生
                 mixer.init()  # mixerを初期化
                 mixer.music.set_volume(volume)

@@ -19,7 +19,7 @@ GUIからの入力を反映させることができると思います.
 (2)GUIのデザインに関して
 他に必要な機能があれば変数やボタンを追加して機能を拡張することができます. 
 """
-parameters = {"mode":0}#GUIからの入力を表す変数 1なら演奏中, 0なら演奏中でない
+parameters = {"mode":0,"instrument":"ピアノ"}#GUIからの入力を表す変数 1なら演奏中, 0なら演奏中でない
 def json_write():
     json_file1 = open('./GUI.json', mode="w")#出力するJSONファイルを開く
     json.dump(parameters, json_file1)#JSONファイルにdictの中身を出力
@@ -38,6 +38,8 @@ def end():
 
 #プルダウンメニューで選択された時に呼ばれる関数
 def select_instrument(e):
+    parameters["instrument"] = v.get()
+    json_write()
     print("選ばれた楽器は", v.get())
 
 root = tk.Tk()
@@ -61,9 +63,9 @@ button2.place(x = 350 , y = 200, anchor = tk.CENTER)
 
 #楽器選択用のプルダウンメニュー
 v = tk.StringVar()
-instruments = ('ギター', 'ドラム')
+instruments = ('guitar', 'piano')
 select = ttk.Combobox(root, textvariable = v, state="readonly", values = instruments)
-select.set('ギター')
+select.set('guitar')
 select.bind('<<ComboboxSelected>>', select_instrument)
 select.place(x = 250 , y = 300, anchor = tk.CENTER)
 
